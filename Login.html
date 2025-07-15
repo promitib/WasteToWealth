@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="Login.css" type="text/css" media="all"> 
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">NotoDex</h2>
+    </header>
+
+    <div class="wrapper">
+        <span class="icon-close">
+            <ion-icon name="close"></ion-icon>
+        </span>
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="person"></ion-icon>
+                    </span>
+                    <input id="username" type="text" required>
+                    <label>Username</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="mail"></ion-icon>
+                    </span>
+                    <input id="email1" type="Email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    <input  id="password1" type="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Remember Me</label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button id="login" type="submit" class="btn" onclick="addUser1()">Login</button>
+                <div class="login-register">
+                    <p>Don't Have an account?
+                        <a href="#" class="register-link">Register</a>
+                    </p> 
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box register">
+            <h2>Register</h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="person"></ion-icon>
+                    </span>
+                    <input id="user1name" type="text" required>
+                    <label>Username</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="mail"></ion-icon>
+                    </span>
+                    <input id="email" type="Email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </span>
+                    <input id="password" type="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">I Agree To The Terms & Conditions</label>
+                </div>
+                <button type="submit" id="signUp" class="btn" onclick="addUser()">Register</button>
+                <div class="login-register">
+                    <p>Already Have an account?
+                        <a href="#" class="login-link">Login</a>
+                    </p> 
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="Login.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script type="module">
+        
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+import { getDatabase, set, ref, update} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC3AbJ9MasNkIN14_bEX-KHysnvmScjy-E",
+  authDomain: "login-f6c7c.firebaseapp.com",
+  databaseURL: "https://login-f6c7c-default-rtdb.firebaseio.com",
+  projectId: "login-f6c7c",
+  storageBucket: "login-f6c7c.appspot.com",
+  messagingSenderId: "844540987841",
+  appId: "1:844540987841:web:44840bae03adbdfe618740"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const auth = getAuth();
+
+signUp.addEventListener('click',(e)=>{
+     
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var username = document.getElementById('username').value;  
+    console.log(email);
+    console.log(password);
+    console.log(username);
+
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+
+    set(ref(database, 'users/' + user.uid),{
+        username: username,
+        email: email
+    })
+//Redirect here
+    window.location= "Main_page.html"
+    // ...
+     })
+     
+    .catch((error) => {
+     const errorCode = error.code;
+    const errorMessage = error.message;
+
+    alert(errorMessage);
+    // ..
+});})
+
+login.addEventListener('click', (e)=>{
+
+    var email = document.getElementById('email1').value;
+    var password = document.getElementById('password1').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+
+    const dt = Date()
+    update(ref(database, 'users/' + user.uid),{
+        last_login: dt,
+    // ...
+    })
+
+    window.location= "Main_page.html"
+    })
+     .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+    alert(errorMessage);
+});})
+    </script>
+</body>
+</html>
+

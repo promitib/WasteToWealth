@@ -1,0 +1,167 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page - EcoPlatform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Main_page.css" type="text/css" media="all">
+
+</head>
+
+<body onload="onload()">
+    <header>
+        <h2 class="logo">Waste to Wealth</h2>
+        <nav class="navigation">
+            <a href="#Home">Home</a>
+            <a href="#About">About</a>
+            <a href="#Action">Services</a>
+            <a href="#Impact">Impact</a>
+            <button onclick="LogOut()" id="Logout">Log Out</button>
+        </nav>
+    </header>
+
+    <section id="Home" class="parallax">
+        <img src="hill1.png" id="hill1">
+        <img src="hill2.png" id="hill2">
+        <img src="hill3.png" id="hill3">
+        <img src="hill4.png" id="hill4">
+        <img src="hill5.png" id="hill5">
+        <img src="tree.png" id="tree">
+        <img src="leaf.png" id="leaf">
+        <img src="plant.png" id="plant">
+        <h2 id="text"></h2>
+         <div class="wrapper">
+             <h2 id="text3">Let's</h2>
+           
+            
+            <ul class="dynamic-txts">
+                <li><span>Recycle</span></li>
+                <li><span>Reuse</span></li>
+              <li><span>Reduce</span></li>
+            </ul>
+          </div>
+    </section>
+
+    <section id="About" class="sec">
+        <center><h2>About</h2></center>
+        <br><hr><br>
+        <section>
+            <p class="Bold">Our Mission</p>
+            <p class="lorem">
+                Waste to Wealth bridges the gap between waste generators and eco-conscious consumers. Our goal is to reduce plastic pollution and electronic waste by enabling individuals and businesses to sell recyclable materials and purchase eco-friendly alternatives with ease.
+            </p>
+        </section>
+        <br>
+        <section>
+            <p class="Bold">What You Can Do</p>
+            <ul>
+                <li class="lorem">Sell your recyclable waste in bulk and ensure it doesn't end up in landfills.</li>
+                <li class="lorem">Buy innovative recycled proudcts that reduce your carbon footprint.</li>
+                <li class="lorem">Be a part of a sustainable revolution—where your wase becomes someone else's resource.</li>
+            </ul>
+        </section>
+        <br>
+        <section>
+            <p class="Bold">Who We Are</p>
+            <p class="lorem">
+                We're a community-driven initiative created by passionate individuals to build a platform for efficient waste exchange and green product discovery.
+            </p>
+        </section>
+    </section>
+
+    <section id="Action" class="sec">
+        <center><h2>Services</h2></center>
+        <div class="button">
+            <button id="btn1" onclick="showSellForm()">Sell Your Waste</button>
+            <button id="btn2" onclick="location.href='marketplace.html'">Buy Upcycled Products</button>
+        </div>
+
+        <div id="sellFormContainer" class="upload-form" style="display:none;">
+            <form onsubmit="return handleSellForm(event)">
+                <label for="wasteType">Type of Waste:</label>
+                <select id="wasteType" required>
+                    <option value="">--Select--</option>
+                    <option>Plastic</option>
+                    <option>E-waste</option>
+                    <option>Paper</option>
+                    <option>Metal</option>
+                    <option>Glass</option>
+                </select>
+
+                <label for="wasteWeight">Estimated Weight (in kg):</label>
+                <select id="wasteWeight" required>
+                    <option value="">--Select--</option>
+                    <option value="0.5">Less than 1kg</option>
+                    <option value="1">1–5kg</option>
+                    <option value="5">5–10kg</option>
+                    <option value="10">More than 10kg</option>
+                </select>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    
+    <section id="Counter" class="sec">
+  <center><h2>Impact Counters</h2></center>
+  <div class="counters">
+    <div class="counter-box">
+      <span class="count" data-target="120">0</span>
+      <p>KG Waste Processed</p>
+    </div>
+    <div class="counter-box">
+      <span class="count" data-target="230">0</span>
+      <p>Producs Sold</p>
+    </div>
+    <div class="counter-box">
+      <span class="count" data-target="3200">0</span>
+      <p>User Traffic</p>
+    </div>
+    <div class="counter-box">
+      <span class="count" data-target="85">0</span>
+      <p>Eco Sellers Onborded</p>
+    </div>
+  </div>
+
+</section>
+
+    <script>
+        function showSellForm() {
+            const form = document.getElementById("sellFormContainer");
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        }
+
+        function handleSellForm(event) {
+            event.preventDefault();
+            const weight = parseFloat(document.getElementById("wasteWeight").value);
+
+            if (weight < 1) {
+                window.location.href = "minimal-quantity.html";
+            } else {
+                window.location.href = "bulk.html";
+                document.getElementById("sellFormContainer").style.display = "none";
+            }
+            return false;
+        }
+
+        function LogOut() {
+            window.location = "Login.html";
+            localStorage.removeItem("user_name");
+        }
+
+        function onload() {
+            const user1name = localStorage.getItem("user_name");
+            const welcomeText = document.getElementById("text2");
+            if (welcomeText && user1name) welcomeText.innerHTML = user1name;
+        }
+    </script>
+    <script src="Main_page.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Bin Locator</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #003329;
+      color: #fff;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #0fe;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      font-size: 1.1em;
+      margin: 10px 0;
+    }
+
+    .smart-bin-info {
+      background-color: #014e3c;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #0fe;
+    }
+
+    form {
+      margin-top: 30px;
+      background-color: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    label, input, select, button {
+      display: block;
+      width: 100%;
+      margin-top: 15px;
+      font-size: 1em;
+    }
+
+    input, select {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #118a72;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0fe;
+      color: #000;
+    }
+
+    #binResults {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #0fe;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Pickup Not Available — But Here’s a Smarter Way</h1>
+
+  <p>We're thrilled that you're eager to dispose of waste responsibly!</p>
+  <p>However, doorstep pickup for quantities less than 1kg isn't logistically viable yet.</p>
+<div class="smart-bin-info">
+  <span style="display: inline-block; vertical-align: top; width: 60%;">
+    <h2>Introducing: The Smart Bin</h2>
+    <p>Smart Bin is an AI-powered system that automatically sorts waste into recyclable, organic, and hazardous categories to promote eco-friendly disposal and efficient recycling.
+</p>
+    <ul style="list-style: none; padding: 0; ">
+      <li> Automated Waste Sorting: Uses AI and sensors to detect and categorize waste into recyclable, organic, and hazardous types.</li>
+      <li> Environmental Impact: Promotes eco-friendly disposal, reduces landfill waste, and enhances recycling efficiency.</li>
+      <li> Target Usage: Designed for smart cities, institutions, and sustainable waste management systems</li>
+    </ul>
+  </span>
+
+  <span style="display: inline-block; vertical-align: top; width: 35%;">
+    <img src="bin.png" alt="Smart Bin" style="max-width: 100%; max-height: 350px;height: auto; object-fit: contain;" />
+  </span>
+</div>
+  <form onsubmit="return findSmartBin(event)">
+    <label for="pincode">Enter Your Pincode:</label>
+    <input type="text" id="pincode" placeholder="e.g., 560001" required>
+
+    <label for="locality">Or Select Your Locality:</label>
+    <select id="locality">
+      <option value="">--Select--</option>
+      <option value="Indiranagar">Indiranagar</option>
+      <option value="Whitefield">Whitefield</option>
+      <option value="Koramangala">Koramangala</option>
+      <option value="Jayanagar">Jayanagar</option>
+    </select>
+
+    <button type="submit">Find My Nearest Smart Bin</button>
+  </form>
+
+  <div id="binResults"></div>
+
+  <script>
+    function findSmartBin(e) {
+      e.preventDefault();
+      const pin = document.getElementById("pincode").value.trim();
+      const area = document.getElementById("locality").value;
+
+      let message = "";
+
+      if (pin === "560001" || area === "Indiranagar") {
+        message = "Nearest Smart Bin: BDA Complex, Indiranagar (Open 9AM–7PM)";
+      } else if (area === "Whitefield") {
+        message = "Nearest Smart Bin: Nexus Mall Parking, Whitefield";
+      } else if (area === "Koramangala") {
+        message = "Nearest Smart Bin: 5th Block Park Area, Koramangala";
+      } else if (area === "Jayanagar") {
+        message = "Nearest Smart Bin: Jayanagar 4th Block Bus Stand";
+      } else {
+        message = "No Smart Bin found in this area yet. We’ll be expanding soon!";
+      }
+
+      document.getElementById("binResults").innerText = message;
+      return false;
+    }
+  </script>
+</body>
+
+</html>

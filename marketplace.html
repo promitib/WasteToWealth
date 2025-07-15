@@ -1,0 +1,301 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waste to Wealth Marketplace</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #003329;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(135deg, #014e3c, #016d55);
+      padding: 25px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 255, 195, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      height: 25px;
+    }
+
+    header h1 {
+      color: #0fe;
+      font-size: 2.5em;
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0, 255, 200, 0.4);
+    }
+
+    header .cart {
+      font-size: 1.1em;
+      color: #0fe;
+      background-color: rgba(0, 255, 200, 0.1);
+      padding: 10px 20px;
+      border: 2px solid #0fe;
+      border-radius: 25px;
+      transition: 0.3s;
+    }
+
+    header .cart:hover {
+      background-color: #0fe;
+      color: #003329;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 40px 60px;
+      background-color: #00271f;
+    }
+
+    .card {
+      background-color: #ffffff;
+      color: #000000;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 255, 195, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px #0fe;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-body h3 {
+      margin-bottom: 10px;
+      color: #014e3c;
+    }
+
+    .card-body p {
+      font-size: 0.95em;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #118a72;
+    }
+
+    .buy-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      background-color: #118a72;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .buy-btn:hover {
+      background-color: #0fe;
+      color: #000;
+    }
+
+    #cartBox {
+      background-color: #00271f;
+      padding: 20px;
+      border-top: 2px solid #0fe;
+    }
+
+    #cartItems {
+      margin-top: 10px;
+      font-size: 1em;
+    }
+
+    #clearCartBtn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ff4444;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #clearCartBtn:hover {
+      background-color: #ff7777;
+      color: #000;
+    }
+
+    footer {
+      background-color: #014e3c;
+      text-align: center;
+      padding: 20px;
+      color: #0fe;
+      font-size: 0.9em;
+      box-shadow: 0 -2px 8px rgba(0, 255, 195, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Waste to Wealth Marketplace</h1>
+    <div class="cart" onclick="toggleCart()">🛒 Cart (<span id="cartCount">0</span>)</div>
+  </header>
+
+  <section class="grid">
+
+    <div class="card">
+      <img src="https://www.mockupcloud.com/uploads/thumbs/images/2024/01/26/04_4-1170x780.jpg" alt="Reusable Bottle" style="object-fit: contain;">
+      <div class="card-body">
+        <h3>Reusable Bottle</h3>
+        <p>Say goodbye to plastic! This stainless steel bottle keeps your drinks hot or cold.</p>
+        <span class="price">₹349</span>
+        <button class="buy-btn" onclick="addToCart('Reusable Bottle', 349)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://www.thehouseofartisans.com/cdn/shop/products/image_48ab658e-2c67-4aca-8143-c3154f2035f2_800x.jpg?v=1615294350" alt="Eco Notebook" style="object-fit: contain;">
+      <div class="card-body">
+        <h3>Upcycled Notebook</h3>
+        <p>Made from 100% recycled paper, this notebook is perfect for students and professionals.</p>
+        <span class="price">₹129</span>
+        <button class="buy-btn" onclick="addToCart('Upcycled Notebook', 129)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://organicindia.com/cdn/shop/files/2-Toothbrush.jpg?v=1708949510" alt="Bamboo Toothbrush" style="object-fit: contain;">
+      <div class="card-body">
+        <h3>Bamboo Toothbrush</h3>
+        <p>A biodegradable alternative to plastic brushes. Gentle on teeth and the planet.</p>
+        <span class="price">₹89</span>
+        <button class="buy-btn" onclick="addToCart('Bamboo Toothbrush', 89)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="listProductBox" style="background:#00271f; padding:60px 20px;">
+  <div style="max-width:600px; margin:auto; background:#014e3c; padding:40px; border-radius:16px; box-shadow: 0 0 10px rgba(0,255,200,0.2);">
+    <h2 style="color:#0fe; text-align:center; margin-bottom:30px; font-size:2em;">List a New Product</h2>
+    <form id="listProductForm" onsubmit="return listProduct(event)" style="display:flex; flex-direction:column; gap:20px;">
+      <div>
+        <label for="productName" style="color:white; font-weight:600; margin-bottom:5px; display:block;">Product Name</label>
+        <input type="text" id="productName" required placeholder="e.g. Handmade Recycled Pen" style="width:100%; padding:12px; border-radius:8px; border:none; font-size:1em;">
+      </div>
+
+      <div>
+        <label for="productDesc" style="color:white; font-weight:600; margin-bottom:5px; display:block;">Description</label>
+        <textarea id="productDesc" rows="3" required placeholder="Short eco-friendly description" style="width:100%; padding:12px; border-radius:8px; border:none; font-size:1em;"></textarea>
+      </div>
+
+      <div>
+        <label for="productPrice" style="color:white; font-weight:600; margin-bottom:5px; display:block;">Price (₹)</label>
+        <input type="number" id="productPrice" required min="1" style="width:100%; padding:12px; border-radius:8px; border:none; font-size:1em;">
+      </div>
+
+      <div>
+        <label for="productImg" style="color:white; font-weight:600; margin-bottom:5px; display:block;">Image URL</label>
+        <input type="url" id="productImg" required placeholder="Direct image URL" style="width:100%; padding:12px; border-radius:8px; border:none; font-size:1em;">
+      </div>
+
+      <button type="submit" class="buy-btn" style="margin-top:10px; font-size:1.1em;">Add to Marketplace</button>
+    </form>
+  </div>
+</section>
+
+  <section id="cartBox" style="display:none;">
+    <h2 style="text-align:center; color:#0fe;">Your Cart</h2>
+    <div id="cartItems"></div>
+    <div style="text-align:center;">
+      <button id="clearCartBtn" onclick="clearCart()">Clear Cart</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 EcoCycle • Designed for conscious living
+  </footer>
+
+  <script>
+    let cart = [];
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      document.getElementById('cartCount').innerText = cart.length;
+      updateCartDisplay();
+    }
+
+    function toggleCart() {
+      const cartBox = document.getElementById('cartBox');
+      cartBox.style.display = cartBox.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cartItems');
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(({ item, price }, index) => {
+        cartItems.innerHTML += `<p>${index + 1}. ${item} - ₹${price}</p>`;
+        total += price;
+      });
+
+      if (cart.length > 0) {
+        cartItems.innerHTML += `<hr><p><strong>Total: ₹${total}</strong></p>`;
+      } else {
+        cartItems.innerHTML = '<p>Your cart is empty.</p>';
+      }
+    }
+
+    function listProduct(e) {
+  e.preventDefault();
+  const name = document.getElementById('productName').value.trim();
+  const desc = document.getElementById('productDesc').value.trim();
+  const price = parseInt(document.getElementById('productPrice').value);
+  const img = document.getElementById('productImg').value.trim();
+
+  const grid = document.querySelector('.grid');
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <img src="${img}" alt="${name}">
+    <div class="card-body">
+      <h3>${name}</h3>
+      <p>${desc}</p>
+      <span class="price">₹${price}</span>
+      <button class="buy-btn" onclick="addToCart('${name}', ${price})">Add to Cart</button>
+    </div>`;
+
+  grid.appendChild(card);
+  document.getElementById('listProductForm').reset();
+  alert('Product added to marketplace!');
+  return false;
+}
+
+function clearCart() {
+      cart = [];
+      document.getElementById('cartCount').innerText = '0';
+      updateCartDisplay();
+    }
+  </script>
+</body>
+
+</html>
